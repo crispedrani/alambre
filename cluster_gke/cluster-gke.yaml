@@ -1,0 +1,49 @@
+---
+- name: Despliegue de clúster de Kubernetes en GKE
+  hosts: localhost
+  gather_facts: no
+  vars:
+    project_id: "alambre"
+    cluster_name: "alambre-gke"
+    region: "us-central1"
+    node_pool_name: "default-pool"
+    node_count: 3
+    machine_type: "n1-standard-2"
+    service_account_key_path: "/ruta/a/tu/clave-de-cuenta-de-servicio.json"
+
+  tasks:
+    - name: Crear clúster de Kubernetes en GKE
+      community.google.gcontainer_cluster:
+        name: "{{ cluster_name }}"
+        project_id: "{{ project_id }}"
+        zone: "{{ region }}-a"
+        node_pools:
+          - name: "{{ node_pool_name }}"
+            initial_node_count: "{{ node_count }}"
+            machine_type: "{{ machine_type }}"
+        auth_kind: serviceaccount
+        service_account_file: "{{ service_account_key_path }}"
+        state: present
+      register: result
+
+    - name: Obtener archivo de configuración de Kubernetes
+      community.google.gcontainer_get_credentials:
+        name: "{{ cluster_name }}"
+        project_id: "{{ project_id }}"
+        zone: "{{ region }}-a"
+        auth_kind: serviceaccount
+        service_account_file: "{{ service_account_key_path }}"
+
+    - name: Copiar archivo de configuración de Kubernetes
+      copy:
+        src: "{{ lookup('env', 'HOME') }}/.kube/config"
+        dest: "~/.kube/config"
+        remote_src: yes
+        mode: 0600
+
+    - name: Instalar kubectl
+      become: yes
+      apt:
+        name: kubectl
+        update_cache: yes
+      when: "'kubectl' not in inventory_hostname"
