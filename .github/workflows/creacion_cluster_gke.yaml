@@ -1,0 +1,36 @@
+name: Crear cluster de Kubernetes GKE en GCP
+
+on:
+  workflow_dispatch: {}
+    
+
+jobs:
+  create-cluster:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v2
+      
+      - name: ubicacion en el action
+        run: pwd
+
+      - name: Configurar Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+      - name: Ejecutar playbook
+        uses: docker://ansible/ansible:latest
+        with:
+          entrypoint: /bin/sh
+          args: -c "ansible-playbook -i inventories/hosts.yaml playbooks/create-cluster-gke.yaml"
+
+        env:
+          SERVICE_ACCOUNT_KEY_PATH: ${{ secrets.SERVICE_ACCOUNT_KEY_PATH }}
+          SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+          SERVICE_ACCOUNT_PROJECT_ID: ${{ secrets.SERVICE_ACCOUNT_PROJECT_ID }}
+          GCP_REGION: ${{ secrets.GCP_REGION }}
+          GCP_ZONE: ${{ secrets.GCP_ZONE }}
+          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
+          CLUSTER_VERSION: ${{ secrets.CLUSTER_VERSION }}
