@@ -9,7 +9,7 @@
     node_pool_name: "default-pool"
     node_count: 2
     machine_type: "n1-standard-2"
-    service_account_key: "{{ lookup('env', 'GCP_SA_KEY') }}"
+    service_account_file: "{{ lookup('env', 'GCP_SA_KEY') }}"
 
   tasks:
     - name: Crear clúster de Kubernetes en GKE
@@ -22,23 +22,31 @@
           machine_type: "{{ machine_type }}"
           disk_size_gb: 500
         auth_kind: serviceaccount
-        service_account_file: "{{ service_account_key }}"
+        service_account_file: "{{ service_account_file}}"
         state: present
       register: result
 
     - name: Obtener archivo de configuración de Kubernetes
       google.cloud.gcp_container_cluster_info:
         name: "{{ cluster_name }}"
-        project: "{{ project_id }}"
+        project_id: "{{ project_id }}"
         location: "{{ region }}-a"
         auth_kind: serviceaccount
-        service_account_file: "{{ service_account_key }}"
+        service_account_file: "{{ service_account_file }}"
 
-    - name: Copiar archivo de configuración de Kubernetes
+    - name: Descargar credenciales del cluster
+      gcp_container_cluster_info:
+        name: "{{ cluster_name }}"
+        project_id: "{{ project_id }}"
+        auth_kind: serviceaccount
+        service_account_file: "{{ service_account_file }}"
+        location: "{{ region }}-a"
+      register: cluster_info
+  
+    - name: Escribir archivo de kubeconfig
       copy:
-        src: "{{ lookup('env', 'HOME') }}/.kube/config"
-        dest: "~/.kube/config"
-        remote_src: yes
+        content: "{{ cluster_info.kubeconfig.content | b64decode }}"
+        dest: "{{ playbook_dir }}/kubeconfig.yaml"
         mode: 0600
 
     - name: Instalar kubectl
