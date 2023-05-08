@@ -27,12 +27,12 @@
       register: result
 
     - name: Obtener archivo de configuración de Kubernetes
-      community.google.gcontainer_get_credentials:
+      google.cloud.gcp_container_cluster_info:
         name: "{{ cluster_name }}"
-        project_id: "{{ project_id }}"
-        zone: "{{ region }}-a"
+        project: "{{ project_id }}"
+        location: "{{ region }}-a"
         auth_kind: serviceaccount
-        service_account_file: "{{ service_account_key_path }}"
+        service_account_file: "{{ service_account_key }}"
 
     - name: Copiar archivo de configuración de Kubernetes
       copy:
