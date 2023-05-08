@@ -1,0 +1,6 @@
+ansible
+google-auth
+requests
+google-auth-httplib2
+google-auth-oauthlib
+

@@ -1,15 +1,15 @@
 ---
 - name: Despliegue de clúster de Kubernetes en GKE
   hosts: localhost
-  gather_facts: no
+  gather_facts: false
   vars:
-    project_id: "alambre"
-    cluster_name: "alambre-gke"
-    region: "us-central1"
+    project_id: "{{ lookup('env', 'GCP_PROJECT_ID') }}"
+    cluster_name: "{{ lookup('env', 'GCP_CLUSTER_NAME') }}"
+    region: "{{ lookup('env', 'GCP_REGION') }}"
     node_pool_name: "default-pool"
-    node_count: 3
+    node_count: 2
     machine_type: "n1-standard-2"
-    service_account_key_path: "/ruta/a/tu/clave-de-cuenta-de-servicio.json"
+    service_account_key_path: "{{ lookup('env', 'GCP_SA_KEY') }}"
 
   tasks:
     - name: Crear clúster de Kubernetes en GKE
@@ -22,7 +22,7 @@
             initial_node_count: "{{ node_count }}"
             machine_type: "{{ machine_type }}"
         auth_kind: serviceaccount
-        service_account_file: "{{ service_account_key_path }}"
+        service_account_file: "{{ service_account_key }}"
         state: present
       register: result
 
@@ -42,7 +42,7 @@
         mode: 0600
 
     - name: Instalar kubectl
-      become: yes
+      become: true
       apt:
         name: kubectl
         update_cache: yes

@@ -1,0 +1,10 @@
+- name: demo playbook
+  hosts: localhost
+  gather_facts: false
+  vars:
+    list_for_loops: [1, 2, 3]
+  tasks:
+    - name: escribe en consola
+      debug:
+        msg: "Hola mundo ansible"
+    

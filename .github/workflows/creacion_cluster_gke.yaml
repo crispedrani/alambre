@@ -18,7 +18,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@master
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
 
       - name: Ejecutar playbook
         uses: docker://ansible/ansible:latest
@@ -27,10 +27,10 @@ jobs:
           args: -c "ansible-playbook -i inventories/hosts.yaml playbooks/create-cluster-gke.yaml"
 
         env:
-          SERVICE_ACCOUNT_KEY_PATH: ${{ secrets.SERVICE_ACCOUNT_KEY_PATH }}
-          SERVICE_ACCOUNT_EMAIL: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
-          SERVICE_ACCOUNT_PROJECT_ID: ${{ secrets.SERVICE_ACCOUNT_PROJECT_ID }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          SERVICE_ACCOUNT_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
+          SERVICE_ACCOUNT_PROJECT_ID: ${{ secrets.PROJECT_ID }}
           GCP_REGION: ${{ secrets.GCP_REGION }}
           GCP_ZONE: ${{ secrets.GCP_ZONE }}
-          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
-          CLUSTER_VERSION: ${{ secrets.CLUSTER_VERSION }}
+          CLUSTER_NAME: ${{ secrets.GCP_CLUSTER_NAME }}
+          #CLUSTER_VERSION: ${{ secrets.CLUSTER_VERSION }}
