@@ -7,3 +7,5 @@ https://medium.com/dzerolabs/using-ansibles-gcp-library-to-provision-a-kubernete
 
 Instalar docker en manjaro
 https://linuxconfig.org/manjaro-linux-docker-installation
+
+https://docs.ansible.com/ansible/latest/collections/google/cloud/gcp_container_cluster_module.html

@@ -13,14 +13,14 @@
 
   tasks:
     - name: Crear clúster de Kubernetes en GKE
-      community.google.gcontainer_cluster:
+      google.cloud.gcp_container_cluster:
         name: "{{ cluster_name }}"
-        project_id: "{{ project_id }}"
-        zone: "{{ region }}-a"
-        node_pools:
-          - name: "{{ node_pool_name }}"
-            initial_node_count: "{{ node_count }}"
-            machine_type: "{{ machine_type }}"
+        initial_node_count: "{{ node_count }}"
+        project: "{{ project_id }}"
+        location: "{{ region }}-a"
+        node_config:
+          machine_type: "{{ machine_type }}"
+          disk_size_gb: 500
         auth_kind: serviceaccount
         service_account_file: "{{ service_account_key }}"
         state: present
