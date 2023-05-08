@@ -9,7 +9,7 @@
     node_pool_name: "default-pool"
     node_count: 2
     machine_type: "n1-standard-2"
-    service_account_key_path: "{{ lookup('env', 'GCP_SA_KEY') }}"
+    service_account_key: "{{ lookup('env', 'GCP_SA_KEY') }}"
 
   tasks:
     - name: Crear clúster de Kubernetes en GKE
