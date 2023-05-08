@@ -11,7 +11,9 @@ jobs:
         uses: actions/checkout@v2
       
       - name: ubicacion en el action
-        run: pwd
+        run: |
+          pwd
+          ls -l
 
       - name: Configurar Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
@@ -28,7 +30,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install ansible google-auth requests google-auth-httplib2 google-auth-oauthlib
-          args: -c "ansible-playbook -i inventories/hosts.yaml playbooks/create-cluster-gke.yaml"
+
+      - name: Ejecutar playbook
+        run: |      
+          ansible-playbook -i inventories/hosts.yaml playbooks/create-cluster-gke.yaml
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
