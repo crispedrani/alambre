@@ -33,7 +33,7 @@ jobs:
 
       - name: Ejecutar playbook
         run: |      
-          ansible-playbook -i inventories/hosts.yaml playbooks/create-cluster-gke.yaml
+          ansible-playbook -i cluster_gke/inventories/hosts.yaml cluster_gke/playbooks/create-cluster-gke.yaml
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
