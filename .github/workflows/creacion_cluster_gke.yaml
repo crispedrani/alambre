@@ -29,7 +29,7 @@ jobs:
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
-          SERVICE_ACCOUNT_PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          SERVICE_ACCOUNT_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           GCP_REGION: ${{ secrets.GCP_REGION }}
           GCP_ZONE: ${{ secrets.GCP_ZONE }}
           CLUSTER_NAME: ${{ secrets.GCP_CLUSTER_NAME }}
