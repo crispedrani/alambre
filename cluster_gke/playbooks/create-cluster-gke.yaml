@@ -4,7 +4,7 @@
   gather_facts: false
   vars:
     project_id: '{{ lookup("env", "GCP_PROJECT_ID") }}'
-    clustername: '{{ lookup("env", "GCP_CLUSTERNAME") }}'
+    nombre_cluster: '{{ lookup("env", "GCP_NOMBRE_CLUSTER") }}'
     region: '{{ lookup("env", "GCP_REGION") }}'
     node_pool_name: 'default-pool'
     node_count: 2
@@ -14,7 +14,7 @@
   tasks:
     - name: Crear clúster de Kubernetes en GKE
       google.cloud.gcp_container_cluster:
-        name: '{{ clustername }}'
+        name: '{{ nombre_cluster }}'
         initial_node_count: '{{ node_count }}'
         project: '{{ project_id }}'
         location: '{{ region }}-a'
@@ -28,7 +28,7 @@
 
     - name: Obtener archivo de configuración de Kubernetes
       google.cloud.gcp_container_cluster_info:
-        name: '{{ clustername }}'
+        name: '{{ nombre_cluster }}'
         project_id: '{{ project_id }}'
         location: '{{ region }}-a'
         auth_kind: serviceaccount
@@ -36,7 +36,7 @@
 
     - name: Descargar credenciales del cluster
       gcp_container_cluster_info:
-        name: '{{ clustername }}'
+        name: '{{ nombre_cluster }}'
         project_id: '{{ project_id }}'
         auth_kind: serviceaccount
         service_account_file: '{{ service_account_file }}'
