@@ -10,17 +10,17 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v2
       
-      - name: Copiar credenciales
-        run: |
-          echo "${{ secrets.GCP_SA_KEY }}" > cluster_gke/playbooks/temp.json
-          pwd
-          ls -l
+      #- name: Copiar credenciales
+      #  run: |
+      #    echo "${{ secrets.GCP_SA_KEY }}" > cluster_gke/playbooks/temp.json
+      #    pwd
+      #    ls -l
 
       - name: Configurar Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_file: cluster_gke/playbooks/temp.json
+          #service_account_file: cluster_gke/playbooks/temp.json
 
       - name: Configurar Python
         uses: actions/setup-python@v2
@@ -29,18 +29,15 @@ jobs:
   
       - name: Instalar dependencias de Ansible
         run: |
-          ls -l cluster_gke/playbooks/temp.json
           python -m pip install --upgrade pip
           pip install ansible google-auth requests 
 
       - name: Ejecutar playbook
         run: |
-          pwd
-          ls -l  cluster_gke/playbooks/temp.json   
-          ansible-playbook -vv -i cluster_gke/inventories/hosts.yaml cluster_gke/playbooks/create-cluster-gke.yaml
+          ansible-playbook -v -i cluster_gke/inventories/hosts.yaml cluster_gke/playbooks/create-cluster-gke.yaml
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-          GCP_SA_KEY: temp.json
+          GCP_SA_KEY: "${{ secrets.GCP_SA_KEY }}" 
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
           SERVICE_ACCOUNT_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           GCP_REGION: ${{ secrets.GCP_REGION }}

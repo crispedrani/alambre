@@ -12,6 +12,10 @@
     service_account_file: '{{ lookup("env", "GCP_SA_KEY") }}'
 
   tasks:
+    - name: Imprimir la ruta del archivo de servicio de cuenta
+      debug:
+        var: service_account_file
+
     - name: Crear clúster de Kubernetes en GKE
       google.cloud.gcp_container_cluster:
         name: '{{ nombre_cluster }}'
