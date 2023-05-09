@@ -13,6 +13,8 @@ jobs:
       - name: Copiar credenciales
         run: |
           echo "${{ secrets.GCP_SA_KEY }}" > temp.json
+          pwd
+          ls -l
 
       - name: Configurar Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
@@ -31,11 +33,13 @@ jobs:
           pip install ansible google-auth requests google-auth-httplib2 google-auth-oauthlib
 
       - name: Ejecutar playbook
-        run: |      
+        run: |
+          pwd
+          ls -l     
           ansible-playbook -i cluster_gke/inventories/hosts.yaml cluster_gke/playbooks/create-cluster-gke.yaml
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-          GCP_SA_KEY: temp.json
+          GCP_SA_KEY: ./temp.json
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
           SERVICE_ACCOUNT_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           GCP_REGION: ${{ secrets.GCP_REGION }}
