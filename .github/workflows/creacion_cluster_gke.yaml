@@ -12,7 +12,7 @@ jobs:
       
       - name: Copiar credenciales
         run: 
-          cat "${{ secrets.GCP_SA_KEY }}" > cluster_gke/playbooks/temp.json
+          cat "'${{ secrets.GCP_SA_KEY }}'" > cluster_gke/playbooks/temp.json
           pwd
           ls -l cluster_gke/playbooks
 
