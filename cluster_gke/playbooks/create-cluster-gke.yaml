@@ -16,7 +16,7 @@
       google.cloud.gcp_container_cluster:
         name: "{{ cluster_name }}"
         initial_node_count: "{{ node_count }}"
-        project_id: "{{ project_id }}"
+        project: "{{ project_id }}"
         location: "{{ region }}-a"
         node_config:
           machine_type: "{{ machine_type }}"
