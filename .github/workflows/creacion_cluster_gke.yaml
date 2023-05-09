@@ -11,8 +11,8 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Copiar credenciales
-        run: 
-          cat "'${{ secrets.GCP_SA_KEY }}'" > cluster_gke/playbooks/temp.json
+        run: |
+          cat "${{ secrets.GCP_SA_KEY }}" > cluster_gke/playbooks/temp.json
           pwd
           ls -l cluster_gke/playbooks
 
