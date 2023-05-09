@@ -10,16 +10,15 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v2
       
-      - name: ubicacion en el action
+      - name: Copiar credenciales
         run: |
-          pwd
-          ls -l
+          echo "$"
 
       - name: Configurar Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          service_account_file: ${{ secrets.GCP_SA_KEY }}
 
       - name: Configurar Python
         uses: actions/setup-python@v2

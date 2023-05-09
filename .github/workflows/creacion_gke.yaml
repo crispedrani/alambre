@@ -23,6 +23,6 @@ jobs:
 
     - name: Ejecutar playbook de Ansible
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GPC_SA_KEY }}
       run: |
         ansible-playbook -i hosts playbook.yml
