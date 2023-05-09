@@ -4,7 +4,7 @@
   gather_facts: false
   vars:
     project_id: "{{ lookup('env', 'GCP_PROJECT_ID') }}"
-    cluster_name: alambre-cluster-gke-01
+    cluster_name: "{{ cluster_name }}"
     region: "{{ lookup('env', 'GCP_REGION') }}"
     node_pool_name: "default-pool"
     node_count: 2
@@ -14,7 +14,7 @@
   tasks:
     - name: Crear clúster de Kubernetes en GKE
       google.cloud.gcp_container_cluster:
-        name: "alambre-cluster-gke-01"
+        name: "{{ cluster_name }}"
         initial_node_count: "{{ node_count }}"
         project: "{{ project_id }}"
         location: "{{ region }}-a"
