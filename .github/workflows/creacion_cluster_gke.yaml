@@ -45,5 +45,5 @@ jobs:
           SERVICE_ACCOUNT_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           GCP_REGION: ${{ secrets.GCP_REGION }}
           GCP_ZONE: ${{ secrets.GCP_ZONE }}
-          CLUSTER_NAME: alambre-cluster-gke
+          #CLUSTER_NAME: alambre-cluster-gke
           #CLUSTER_VERSION: ${{ secrets.CLUSTER_VERSION }}
