@@ -25,4 +25,4 @@ jobs:
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GPC_SA_KEY }}
       run: |
-        ansible-playbook -i hosts playbook.yml
+        ansible-playbook -i cluster_gke/inventories/hosts cluster_gke/playbooks/playbook.yml
