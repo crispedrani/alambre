@@ -4,7 +4,7 @@
   gather_facts: false
   vars:
     project_id: "{{ lookup('env', 'GCP_PROJECT_ID') }}"
-    cluster_name: "{{ cluster_name }}"
+    cluster_name: "{{ lookup('env', 'CLUSTER_NAME' }}"
     region: "{{ lookup('env', 'GCP_REGION') }}"
     node_pool_name: "default-pool"
     node_count: 2
