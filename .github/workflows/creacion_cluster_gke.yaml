@@ -10,9 +10,9 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v2
       
-      - name: Copiar credenciales
-        run: |
-          echo '${{ secrets.GCP_SA_KEY }}' > cluster_gke/playbooks/temp.json
+      #- name: Copiar credenciales
+      #  run: |
+      #    echo '${{ secrets.GCP_SA_KEY }}' > cluster_gke/playbooks/temp.json
 
       - name: Configurar Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
@@ -41,7 +41,7 @@ jobs:
           ansible-playbook -v -i cluster_gke/inventories/hosts.yaml cluster_gke/playbooks/create-cluster-gke.yaml
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-          GCP_SA_KEY: temp.json 
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
           SERVICE_ACCOUNT_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           GCP_REGION: ${{ secrets.GCP_REGION }}
