@@ -4,7 +4,7 @@
   gather_facts: false
   vars:
     project_id: "{{ lookup('env', 'GCP_PROJECT_ID') }}"
-    cluster_name: "{{ lookup('env', 'GCP_CLUSTER_NAME') }}"
+    cluster_name: "alambre-cluster-gke-01"
     region: "{{ lookup('env', 'GCP_REGION') }}"
     node_pool_name: "default-pool"
     node_count: 2
@@ -16,7 +16,7 @@
       google.cloud.gcp_container_cluster:
         name: "{{ cluster_name }}"
         initial_node_count: "{{ node_count }}"
-        project: "{{ project_id }}"
+        project_id: "{{ project_id }}"
         location: "{{ region }}-a"
         node_config:
           machine_type: "{{ machine_type }}"
