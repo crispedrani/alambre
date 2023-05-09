@@ -12,8 +12,7 @@ jobs:
       
       - name: Copiar credenciales
         run: |
-          echo ${{ secrets.GCP_SA_KEY }} > cluster_gke/playbooks/temp.json
-          echo ${{ secrets.GCP_REGION }}
+          echo '${{ secrets.GCP_SA_KEY }}' > cluster_gke/playbooks/temp.json
 
       - name: Configurar Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
