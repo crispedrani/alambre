@@ -40,7 +40,6 @@
 
     - name: Descargar credenciales del cluster
       gcp_container_cluster_info:
-        name: '{{ nombre_cluster }}'
         project: '{{ project_id }}'
         auth_kind: serviceaccount
         service_account_file: '{{ service_account_file }}'
@@ -60,3 +59,4 @@
         update_cache: yes
       when: '"kubectl" not in inventory_hostname'
 #disk_size_gb: 500
+#name: '{{ nombre_cluster }}'
