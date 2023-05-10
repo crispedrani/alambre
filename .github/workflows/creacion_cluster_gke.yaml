@@ -23,6 +23,7 @@ jobs:
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
+          project: ${{ secrets.GPC_PROJECT_ID }}
 
       - name: Configurar Python
         uses: actions/setup-python@v2
