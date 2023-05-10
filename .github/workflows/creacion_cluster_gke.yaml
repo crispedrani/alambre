@@ -14,15 +14,15 @@ jobs:
       #  run: |
       #    echo '${{ secrets.GCP_SA_KEY }}' > cluster_gke/playbooks/temp.json
 
-      - name: Configurar Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          project_id: ${{ secrets.GPC_PROJECT_ID }}
-
       - name: Authenticate with Google Cloud SDK
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GPC_PROJECT_ID }}
+
+      - name: Configurar Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
           project_id: ${{ secrets.GPC_PROJECT_ID }}
 
       - name: Configurar Python
