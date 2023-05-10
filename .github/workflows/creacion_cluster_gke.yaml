@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout código
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       
       #- name: Copiar credenciales
       #  run: |
@@ -18,11 +18,11 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ secrets.GPC_PROJECT_ID }}
-
+          
       - name: Authenticate with Google Cloud SDK
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          credentials_json: ${{ secrets.GCP_SA_KEY_FILE }}
 
       - name: Configurar Python
         uses: actions/setup-python@v2
@@ -48,3 +48,5 @@ jobs:
           GCP_ZONE: ${{ secrets.GCP_ZONE }}
           GCP_NOMBRE_CLUSTER: alambre-cluster-gke
           #CLUSTER_VERSION: ${{ secrets.CLUSTER_VERSION }}
+          GPC_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.GPC_WORKLOAD_IDENTITY_PROVIDER }}
+          GPC_SERVICE_ACCOUNT: ${{ secrets.GPC_SERVICE_ACCOUNT }}
