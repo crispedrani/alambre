@@ -25,7 +25,6 @@
         location: '{{ region }}-a'
         node_config:
           machine_type: '{{ machine_type }}'
-          disk_size_gb: 500
         auth_kind: serviceaccount
         service_account_file: '{{ service_account_file}}'
         state: present
@@ -60,3 +59,4 @@
         name: kubectl
         update_cache: yes
       when: '"kubectl" not in inventory_hostname'
+#disk_size_gb: 500
