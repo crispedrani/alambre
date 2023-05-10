@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: false
   vars:
-    project_id: '{{ lookup("env", "GCP_PROJECT_ID") }}'
+    project: '{{ lookup("env", "GCP_PROJECT_ID") }}'
     nombre_cluster: '{{ lookup("env", "GCP_NOMBRE_CLUSTER") }}'
     region: '{{ lookup("env", "GCP_REGION") }}'
     node_pool_name: 'default-pool'
@@ -20,7 +20,7 @@
       google.cloud.gcp_container_cluster:
         name: '{{ nombre_cluster }}'
         initial_node_count: '{{ node_count }}'
-        project: alambre
+        project: {{ project }}
         zone: '{{ region }}-a'
         location: '{{ region }}-a'
         node_config:
@@ -32,14 +32,14 @@
 
     - name: Obtener archivo de configuración de Kubernetes
       google.cloud.gcp_container_cluster_info:
-        project: '{{ project_id }}'
+        project: '{{ project }}'
         location: '{{ region }}-a'
         auth_kind: serviceaccount
         service_account_file: '{{ service_account_file }}'
 
     - name: Descargar credenciales del cluster
       gcp_container_cluster_info:
-        project: '{{ project_id }}'
+        project: '{{ project }}'
         auth_kind: serviceaccount
         service_account_file: '{{ service_account_file }}'
         location: '{{ region }}-a'
