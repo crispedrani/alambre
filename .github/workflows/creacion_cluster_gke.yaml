@@ -37,14 +37,13 @@ jobs:
 
       - name: Ejecutar playbook
         run: |
-          ansible-playbook -v -i cluster_gke/inventories/hosts.yaml cluster_gke/playbooks/create-cluster-gke.yaml
+          ansible-playbook -vvv -i cluster_gke/inventories/hosts.yaml cluster_gke/playbooks/create-cluster-gke.yaml
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
           GCP_SA_KEY_FILE: ${{ env.CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE }}
           SERVICE_ACCOUNT_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
-          GPC_PROJECT_ID: alambre
-          #${{ secrets.GCP_PROJECT_ID }}
+          GPC_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           GCP_REGION: ${{ secrets.GCP_REGION }}
           GCP_ZONE: ${{ secrets.GCP_ZONE }}
           GCP_NOMBRE_CLUSTER: alambre-cluster-gke
