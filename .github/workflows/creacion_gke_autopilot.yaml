@@ -1,4 +1,4 @@
-name: Crear cluster de Kubernetes GKE en GCP
+name: Crear cluster GKE Autopilot en GCP
 
 on:
   workflow_dispatch: {}
