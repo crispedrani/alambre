@@ -9,10 +9,6 @@ jobs:
     steps:
       - name: Checkout código
         uses: actions/checkout@v3
-      
-      #- name: Copiar credenciales
-      #  run: |
-      #    echo '${{ secrets.GCP_SA_KEY }}' > cluster_gke/playbooks/temp.json
 
       - name: Authenticate with Google Cloud SDK
         uses: google-github-actions/auth@v1
@@ -47,7 +43,9 @@ jobs:
           GPC_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           GCP_REGION: ${{ secrets.GCP_REGION }}
           GCP_ZONE: ${{ secrets.GCP_ZONE }}
-          GCP_NOMBRE_CLUSTER: alambre-cluster-gke
+          GPC_PROJECT: ${{ variables.GCP_PROJECT }}
+          GCP_CLUSTER_NAME: ${{ variables.GCP_CLUSTER_NAME }}
+          GPC_NODES_NUMBER: ${{ variables.GPC_NODES_NUMBER }}
           #CLUSTER_VERSION: ${{ secrets.CLUSTER_VERSION }}
           GPC_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.GPC_WORKLOAD_IDENTITY_PROVIDER }}
           GPC_SERVICE_ACCOUNT: ${{ secrets.GPC_SERVICE_ACCOUNT }}
