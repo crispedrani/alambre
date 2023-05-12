@@ -31,20 +31,20 @@
         state: present
       register: result
 
-    - name: Obtener archivo de configuración de Kubernetes
-      google.cloud.gcp_container_cluster_info:
-        project: '{{ project }}'
-        location: '{{ region }}-a'
-        auth_kind: serviceaccount
-        service_account_file: '{{ service_account_file }}'
+#    - name: Obtener archivo de configuración de Kubernetes
+#      google.cloud.gcp_container_cluster_info:
+#        project: '{{ project }}'
+#        location: '{{ region }}-a'
+#        auth_kind: serviceaccount
+#        service_account_file: '{{ service_account_file }}'
 
-    - name: Descargar credenciales del cluster
-      gcp_container_cluster_info:
-        project: '{{ project }}'
-        auth_kind: serviceaccount
-        service_account_file: '{{ service_account_file }}'
-        location: '{{ region }}-a'
-      register: cluster_info
+#    - name: Descargar credenciales del cluster
+#      gcp_container_cluster_info:
+#        project: '{{ project }}'
+#        auth_kind: serviceaccount
+#        service_account_file: '{{ service_account_file }}'
+#        location: '{{ region }}-a'
+#      register: cluster_info
   
 #    - name: Escribir archivo de kubeconfig
 #      copy:
