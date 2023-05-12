@@ -43,9 +43,9 @@ jobs:
           GPC_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           GCP_REGION: ${{ secrets.GCP_REGION }}
           GCP_ZONE: ${{ secrets.GCP_ZONE }}
-          GPC_PROJECT: ${{ variables.GCP_PROJECT }}
-          GCP_CLUSTER_NAME: ${{ variables.GCP_CLUSTER_NAME }}
-          GPC_NODES_NUMBER: ${{ variables.GPC_NODES_NUMBER }}
+          GPC_PROJECT: ${{ vars.GCP_PROJECT }}
+          GCP_CLUSTER_NAME: ${{ vars.GCP_CLUSTER_NAME }}
+          GPC_NODES_NUMBER: ${{ vars.GPC_NODES_NUMBER }}
           #CLUSTER_VERSION: ${{ secrets.CLUSTER_VERSION }}
           GPC_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.GPC_WORKLOAD_IDENTITY_PROVIDER }}
           GPC_SERVICE_ACCOUNT: ${{ secrets.GPC_SERVICE_ACCOUNT }}
