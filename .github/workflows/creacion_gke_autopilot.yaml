@@ -1,0 +1,50 @@
+name: Crear cluster de Kubernetes GKE en GCP
+
+on:
+  workflow_dispatch: {}
+    
+jobs:
+  create-cluster:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Authenticate with Google Cloud SDK
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GPC_PROJECT_ID }}
+
+      - name: Configurar Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GPC_PROJECT_ID }}
+
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+  
+      - name: Instalar dependencias de Ansible
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible google-auth requests 
+          ansible-galaxy collection install google.cloud
+
+      - name: Ejecutar playbook
+        run: |
+          ansible-playbook -vvv -i cluster_gke/inventories/hosts.yaml cluster_gke/playbooks/create-gke-autopilot.yaml
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          GCP_SA_KEY_FILE: ${{ env.CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE }}
+          SERVICE_ACCOUNT_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
+          GPC_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          GCP_REGION: ${{ secrets.GCP_REGION }}
+          GCP_ZONE: ${{ secrets.GCP_ZONE }}
+          GPC_PROJECT: ${{ vars.GCP_PROJECT }}
+          GCP_CLUSTER_NAME: alambre-gke-autopilot
+          #CLUSTER_VERSION: ${{ secrets.CLUSTER_VERSION }}
+          GPC_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.GPC_WORKLOAD_IDENTITY_PROVIDER }}
+          GPC_SERVICE_ACCOUNT: ${{ secrets.GPC_SERVICE_ACCOUNT }}
