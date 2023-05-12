@@ -1,0 +1,25 @@
+---
+- name: Desplegar cluster GKE autopilot
+  hosts: localhost
+  gather_facts: false
+  vars:
+    nombre_cluster: '{{ lookup("env", "GCP_CLUSTER_NAME") }}'
+    project: '{{ lookup("env", "GPC_PROJECT") }}'
+    region: '{{ lookup("env", "GCP_REGION") }}'
+    node_count: '{{ lookup("env", "GPC_NODES_NUMBER") }}'
+    service_account_file: '{{ lookup("env", "GCP_SA_KEY_FILE") }}'  
+
+  tasks:
+    - name: Crear cluster GKE Autopilot
+      google.cloud.gcp_container_cluster:
+        name: '{{ nombre_cluster }}'
+        initial_node_count: '{{ node_count }}'
+        project: '{{ project }}'
+        zone: '{{ region }}-a'
+        location: '{{ region }}-a'
+        release_channel:
+          channel: autopilot
+        auth_kind: serviceaccount
+        service_account_file: '{{ service_account_file}}'
+        state: present
+      register: result
