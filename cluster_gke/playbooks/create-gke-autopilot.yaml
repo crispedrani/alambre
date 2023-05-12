@@ -13,7 +13,7 @@
     - name: Crear cluster GKE Autopilot
       google.cloud.gcp_container_cluster:
         name: '{{ nombre_cluster }}'
-        initial_node_count: '{{ node_count }}'
+        initial_node_count: "{{ node_count }}"
         project: '{{ project }}'
         zone: '{{ region }}-a'
         location: '{{ region }}-a'

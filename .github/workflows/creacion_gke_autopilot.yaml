@@ -39,7 +39,6 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ env.CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE }}
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
           GCP_SA_KEY_FILE: ${{ env.CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE }}
-          SERVICE_ACCOUNT_EMAIL: ${{ secrets.GCP_SA_EMAIL }}
           GPC_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           GCP_REGION: ${{ secrets.GCP_REGION }}
           GCP_ZONE: ${{ secrets.GCP_ZONE }}
@@ -48,3 +47,4 @@ jobs:
           #CLUSTER_VERSION: ${{ secrets.CLUSTER_VERSION }}
           GPC_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.GPC_WORKLOAD_IDENTITY_PROVIDER }}
           GPC_SERVICE_ACCOUNT: ${{ secrets.GPC_SERVICE_ACCOUNT }}
+          GPC_NODES_NUMBER: ${{ vars.GPC_NODES_NUMBER }}
