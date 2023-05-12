@@ -46,17 +46,17 @@
         location: '{{ region }}-a'
       register: cluster_info
   
-    - name: Escribir archivo de kubeconfig
-      copy:
-        content: '{{ cluster_info.kubeconfig.content | b64decode }}'
-        dest: '{{ playbook_dir }}/kubeconfig.yaml'
-        mode: 0600
-
-    - name: Instalar kubectl
-      become: true
-      apt:
-        name: kubectl
-        update_cache: yes
-      when: '"kubectl" not in inventory_hostname'
+#    - name: Escribir archivo de kubeconfig
+#      copy:
+#        content: '{{ cluster_info.kubeconfig.content | b64decode }}'
+#        dest: '{{ playbook_dir }}/kubeconfig.yaml'
+#        mode: 0600
+#
+#    - name: Instalar kubectl
+#      become: true
+#      apt:
+#        name: kubectl
+#        update_cache: yes
+#      when: '"kubectl" not in inventory_hostname'
 #disk_size_gb: 500
 #name: '{{ nombre_cluster }}'
