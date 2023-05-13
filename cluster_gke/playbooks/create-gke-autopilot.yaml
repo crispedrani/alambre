@@ -17,8 +17,7 @@
         project: '{{ project }}'
         zone: '{{ region }}-a'
         location: '{{ region }}-a'
-        release_channel:
-          channel: autopilot
+        autopilot: true
         auth_kind: serviceaccount
         service_account_file: '{{ service_account_file}}'
         state: present
