@@ -11,7 +11,7 @@
 
   tasks:
     - name: Crear cluster GKE Autopilot
-      google.cloud.gcp_container_cluster:
+      google.cloud.gcp_container_autopilot:
         name: alambre-gke-autopilot
         initial_node_count: "{{ node_count }}"
         project: '{{ project }}'
