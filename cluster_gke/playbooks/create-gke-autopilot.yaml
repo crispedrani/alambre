@@ -11,13 +11,14 @@
 
   tasks:
     - name: Crear cluster GKE Autopilot
-      google.cloud.gcp_container_autopilot:
+      google.cloud.gcp_container_cluster:
         name: alambre-gke-autopilot
         initial_node_count: "{{ node_count }}"
         project: '{{ project }}'
         zone: '{{ region }}-a'
         location: '{{ region }}-a'
-        autopilot: true
+        release_channel:
+          channel: "autopilot"
         auth_kind: serviceaccount
         service_account_file: '{{ service_account_file}}'
         state: present
