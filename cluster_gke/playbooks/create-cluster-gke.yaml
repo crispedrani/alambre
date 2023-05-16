@@ -23,11 +23,9 @@
         project: '{{ project }}'
         zone: '{{ region }}-a'
         location: '{{ region }}-a'
-        node_pools:
-          - name: nodes-pool
-            initial_node_count: '{{ node_count }}'
-            config:
-              machine_type: '{{ machine_type }}'
+        initial_node_count: '{{ node_count }}'
+        node_config:
+          machine_type: '{{ machine_type }}'
         auth_kind: serviceaccount
         service_account_file: '{{ service_account_file}}'
         state: present
