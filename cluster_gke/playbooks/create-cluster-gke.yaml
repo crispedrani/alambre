@@ -20,43 +20,19 @@
     - name: Crear clúster de Kubernetes en GKE
       google.cloud.gcp_container_cluster:
         name: '{{ nombre_cluster }}'
-        initial_node_count: '{{ node_count }}'
         project: '{{ project }}'
         zone: '{{ region }}-a'
         location: '{{ region }}-a'
-        node_config:
-          machine_type: '{{ machine_type }}'
+        node_pools:
+          - name: nodes-pool
+            initial_node_count: '{{ node_count }}'
+            config:
+              machine_type: '{{ machine_type }}'
         auth_kind: serviceaccount
         service_account_file: '{{ service_account_file}}'
         state: present
       register: result
 
-#    - name: Obtener archivo de configuración de Kubernetes
-#      google.cloud.gcp_container_cluster_info:
-#        project: '{{ project }}'
-#        location: '{{ region }}-a'
-#        auth_kind: serviceaccount
-#        service_account_file: '{{ service_account_file }}'
-
-#    - name: Descargar credenciales del cluster
-#      gcp_container_cluster_info:
-#        project: '{{ project }}'
-#        auth_kind: serviceaccount
-#        service_account_file: '{{ service_account_file }}'
-#        location: '{{ region }}-a'
-#      register: cluster_info
-  
-#    - name: Escribir archivo de kubeconfig
-#      copy:
-#        content: '{{ cluster_info.kubeconfig.content | b64decode }}'
-#        dest: '{{ playbook_dir }}/kubeconfig.yaml'
-#        mode: 0600
-#
-#    - name: Instalar kubectl
-#      become: true
-#      apt:
-#        name: kubectl
-#        update_cache: yes
-#      when: '"kubectl" not in inventory_hostname'
-#disk_size_gb: 500
-#name: '{{ nombre_cluster }}'
+    - name: Mostrar salida
+      debug:
+        var: output
