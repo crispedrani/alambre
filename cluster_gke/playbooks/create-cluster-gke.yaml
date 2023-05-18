@@ -29,9 +29,9 @@
       register: result
     - name: Crear pool de  nodos
       google.cloud.gcp_container_node_pool:
-        name: 'node-pool-{{  nombre_cluster}}'
+        name: 'node-pool-{{ nombre_cluster }}'
         initial_node_count: '{{ node_count }}'
-        cluster: "{{ nombre_cluster }}"
+        cluster: "{{ cluster }}"
         config:
           disk_size_gb: 80
           disk_type: pd-ssd
