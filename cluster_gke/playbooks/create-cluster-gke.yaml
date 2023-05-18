@@ -23,7 +23,6 @@
         project: '{{ project }}'
         zone: '{{ region }}-a'
         location: '{{ region }}-a'
-        machine_type: '{{ machine_type }}'
         auth_kind: serviceaccount
         service_account_file: '{{ service_account_file}}'
         state: present
