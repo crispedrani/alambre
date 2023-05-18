@@ -41,6 +41,7 @@
         auth_kind: serviceaccount
         service_account_file: '{{ service_account_file}}'
         state: present
+        project: '{{ project }}'
       register: result
     - name: Mostrar salida
       debug:
