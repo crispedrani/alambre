@@ -26,7 +26,7 @@
         auth_kind: serviceaccount
         service_account_file: '{{ service_account_file}}'
         state: present
-      register: result
+      register: cluster
     - name: Crear pool de  nodos
       google.cloud.gcp_container_node_pool:
         name: 'node-pool-{{ nombre_cluster }}'
